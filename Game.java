@@ -12,13 +12,16 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static final String Title="pac-Man";
     private  Thread thread;
     public static Player player;
+    public static level level;
     public Game(){
         Dimension dimension=new Dimension(Game.Width,Game.Height);
         setPreferredSize(dimension);
         setMinimumSize(dimension);
         setMaximumSize(dimension);
       player=new Player(Game.Width/2,Game.Height/2);
+      level=new level("map.png");
       addKeyListener(this);
+        level =new level("map.png");
     }
     public synchronized  void start(){
     if(isRunning)return;
@@ -38,7 +41,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     }
     private void tick(){
     player.tick();
-
+    level.tick();
     }
     private void render(){
 
@@ -51,6 +54,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         g.setColor(Color.BLACK);
         g.fillRect(0,0,Game.Width,Game.Height);
         player.render(g);
+        level.render(g);
         g.dispose();
         bs.show();
     }
