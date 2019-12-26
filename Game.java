@@ -13,6 +13,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private  Thread thread;
     public static Player player;
     public static level level;
+    public static SpriteSheet spriteSheet;
     public Game(){
         Dimension dimension=new Dimension(Game.Width,Game.Height);
         setPreferredSize(dimension);
@@ -22,6 +23,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
       level=new level("map.png");
       addKeyListener(this);
         level =new level("map.png");
+        spriteSheet=new SpriteSheet("spritesheet.png");
     }
     public synchronized  void start(){
     if(isRunning)return;
