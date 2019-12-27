@@ -11,11 +11,12 @@ public class level {
     public Tile[][] tiles;
     public List<Apples> apples;
     public List<Enemy> enemies;
+
     public level(String path){
         apples=new ArrayList<>();
         enemies=new ArrayList<>();
     try {
-        BufferedImage map= ImageIO.read(getClass().getResource(path));
+        BufferedImage map= ImageIO.read(getClass().getResourceAsStream(path));
         this.widht=map.getWidth();
         this.height=map.getHeight();
         int[] pixels=new int[widht*height];

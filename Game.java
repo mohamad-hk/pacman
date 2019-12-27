@@ -1,8 +1,15 @@
+import sun.audio.AudioStream;
+
+import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
@@ -20,12 +27,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
         setMinimumSize(dimension);
         setMaximumSize(dimension);
       player=new Player(Game.Width/2,Game.Height/2);
-      level=new level("map.png");
+      level=new level("/map/map.png");
       addKeyListener(this);
-        level =new level("map.png");
+        level =new level("/map/map.png");
         spriteSheet=new SpriteSheet("spritesheet.png");
+        new Texture();
     }
-    public synchronized  void start(){
+    public synchronized void start(){
+
     if(isRunning)return;
     isRunning=true;
     thread=new Thread(this);
@@ -66,22 +75,22 @@ public class Game extends Canvas implements Runnable, KeyListener {
         requestFocus();
         int fps=0;
         double timer=System.currentTimeMillis();
-        long lasttime=System.nanoTime();
+        long lastTime=System.nanoTime();
         double targettick=60.0;
         double delta=0;
         double ns=1000000000/targettick;
         while ((isRunning)){
             long now=System.nanoTime();
-            delta+=(lasttime)/ns;
-            lasttime=now;
+
+            delta+=(lastTime)/ns;
+            lastTime=now;
             while (delta>=1){
                 tick();
                 render();
                 fps++;
                 delta--;
             }
-            render();
-            fps++;
+
             if(System.currentTimeMillis()-timer>=1000){
                 System.out.println(fps);
                 fps=0;
@@ -104,12 +113,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
         frame.setVisible(true);
         game.start();
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) player.right=true;
@@ -124,5 +127,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) player.left=false;
         if (e.getKeyCode() == KeyEvent.VK_UP) player.up=false;
         if (e.getKeyCode() == KeyEvent.VK_DOWN) player.down=false;
+    }   @Override
+    public void keyTyped(KeyEvent e) {
+
     }
+
 }

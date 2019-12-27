@@ -1,5 +1,5 @@
 import java.awt.*;
-import java.util.logging.Level;
+
 
 public class Player extends Rectangle {
     public boolean right;
@@ -25,7 +25,14 @@ public class Player extends Rectangle {
             }
         }
         if (level.apples.size()==0){
+            Game.player=new Player(0,0);
+            Game.level= new level("/map/map.png");
+            return;
 
+        }
+        for(int i=0;i<Game.level.enemies.size();i++){
+            Enemy en=Game.level.enemies.get(i);
+            if(en.intersects(this)) System.exit(i);
         }
     }
     private boolean canMove(int nextx,int nedxty){
@@ -43,8 +50,8 @@ public class Player extends Rectangle {
     return true;
     }
     public void render(Graphics g){
-        SpriteSheet sheet=Game.spriteSheet;
-       g.drawImage(sheet.getSprite(0,0),x,y,32,32,null);
+    g.drawImage(Texture.players,x,y,width,height,null);
+
     }
 
 }
