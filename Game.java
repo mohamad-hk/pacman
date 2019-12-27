@@ -1,16 +1,8 @@
-import sun.audio.AudioStream;
-
-import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 public class Game extends Canvas implements Runnable, KeyListener {
 
     private  boolean isRunning=false;
@@ -30,7 +22,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
       level=new level("/map/map.png");
       addKeyListener(this);
         level =new level("/map/map.png");
-        spriteSheet=new SpriteSheet("spritesheet.png");
+        spriteSheet=new SpriteSheet("ghost.png");
         new Texture();
     }
     public synchronized void start(){
